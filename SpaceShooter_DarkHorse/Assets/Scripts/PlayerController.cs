@@ -5,20 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float h_move, v_move;
-    private Vector3 playerMotion;
+    private Vector3 playerMotion, gun1, gun2;
     private int health;
+    private bool gunReady;
 
-    public float speed;
+    public GameObject lazershot;
+    public float speed, shotdelay = 1.0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(ShotDelay());
     }
 
     // Update is called once per frame
     void Update()
     {
         Movement();
+        Shoot();
     }
 
     private void Movement()
@@ -48,5 +52,24 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, 0, -35);
         }
+    }
+
+    private void Shoot()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && gunReady)
+        {
+            gun1 = GameObject.Find("Gun").transform.position;
+            gun2 = GameObject.Find("Gun2").transform.position;
+            Instantiate(lazershot, gun1, lazershot.transform.rotation);
+            Instantiate(lazershot, gun2, lazershot.transform.rotation);
+            StartCoroutine(ShotDelay());
+        }
+    }
+
+    IEnumerator ShotDelay()
+    {
+        gunReady = false;
+        yield return new WaitForSeconds(shotdelay);
+        gunReady = true;
     }
 }
