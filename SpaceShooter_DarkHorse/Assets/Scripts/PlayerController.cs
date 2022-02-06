@@ -72,4 +72,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(shotdelay);
         gunReady = true;
     }
+
+
 }

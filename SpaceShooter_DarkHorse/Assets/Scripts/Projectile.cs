@@ -14,27 +14,39 @@ public class Projectile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         Movement();
     }
 
-    protected void Movement()
+    protected virtual void Movement()
     {
-        movement = transform.position + Vector3.forward * Time.deltaTime * speed;
         if(isUpward != true)
         {
-            movement *= -1;
+            movement = transform.position + Vector3.back * Time.deltaTime * speed;
+        }
+        else
+        {
+            movement = transform.position + Vector3.forward * Time.deltaTime * speed;
         }
         transform.position = movement;
     }
 
     protected void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" || other.tag == "Bullet")
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Bullet")
+        {
+            Debug.Log("Player!");
+            Destroy(gameObject);//probably remove, action should take place with their scripts
+        }
+        else if (other.gameObject.tag == "OOB")
+        {
+            Debug.Log("OOB!");
+            Destroy(gameObject);//destory out of bounds
+        }
+        else
         {
             return;
         }
-        Destroy(gameObject);
     }
 }
