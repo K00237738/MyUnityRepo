@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviour
     {
         while(endGame == false && spawningWave == false)
         {//two checks, if a wave spawning is taking affect **and** if the game is over
-            //StartCoroutine(SpawnWreckageWave());
-            //if(wave == 5)
-            //{
-            //    endGame = true;
-            //    wave = 0;
-            //}
+            StartCoroutine(SpawnWreckageWave());
+            if (wave == 5)
+            {
+                endGame = true;
+                wave = 0;
+            }
         }
     }
 
