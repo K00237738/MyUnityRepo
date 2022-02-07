@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3869629213736975791}
   - component: {fileID: 3869629213739875727}
   - component: {fileID: 3869629213738876751}
-  - component: {fileID: 3869629213736935822}
   - component: {fileID: 3869629213736935817}
+  - component: {fileID: 3869629213736935822}
   m_Layer: 0
   m_Name: Debri3
   m_TagString: Obtsacle
@@ -83,20 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3869629213736935822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3869629213736935823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988e92c4a8c7b3c49a155e5a276b45f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  isUpward: 0
 --- !u!136 &3869629213736935817
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -111,3 +97,17 @@ CapsuleCollider:
   m_Height: 0.11
   m_Direction: 2
   m_Center: {x: -9.659813e-10, y: 0.00007899055, z: -0.0011629518}
+--- !u!114 &3869629213736935822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869629213736935823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988e92c4a8c7b3c49a155e5a276b45f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  isUpward: 0

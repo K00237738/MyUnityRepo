@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SpaceDebri : Projectile
 {
+    protected void Start()
+    {
+        speed = speed * 1.25f;
+    }
     // Update is called once per frame
     protected override void Update()
     {
@@ -11,8 +15,27 @@ public class SpaceDebri : Projectile
         base.Update();
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
-        base.OnTriggerEnter(other);
+        base.OnTriggerEnter(other);//will destory if hits oob
+
+        if (other.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);//destory if hits player
+        }
+        else if (other.gameObject.tag == "GoodBullet")
+        {
+            Destroy(gameObject);//destory if player bullet hits
+            Destroy(other.gameObject);
+        }
+        else if(other.gameObject.tag == "Bullet")
+        {
+            Destroy(gameObject);//destory if enemy bullet hits
+            Destroy(other.gameObject);
+        }
+        else
+        {
+            return;
+        }
     }
 }

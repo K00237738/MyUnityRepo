@@ -7,11 +7,8 @@ public class Projectile : MonoBehaviour
     protected Vector3 movement;
     public float speed;
     public bool isUpward;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    //This class will be the main bullet class and other moveable objects in game will inherit from this.
 
     // Update is called once per frame
     protected virtual void Update()
@@ -32,21 +29,20 @@ public class Projectile : MonoBehaviour
         transform.position = movement;
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Bullet")
+        string objectTag = gameObject.tag;
+        if (other.gameObject.tag == "OOB")
         {
-            Debug.Log("Player!");
-            Destroy(gameObject);//probably remove, action should take place with their scripts
-        }
-        else if (other.gameObject.tag == "OOB")
-        {
-            Debug.Log("OOB!");
             Destroy(gameObject);//destory out of bounds
         }
-        else
+        if(gameObject.tag == "Bullet"/* || gameObject.tag == "GoodBullet"*/)//check if current gameobject is a bullet of sorts
         {
-            return;
+            if(other.gameObject.tag == "Player")
+            {
+                Destroy(gameObject);//hit the player
+            }
         }
     }
+
 }

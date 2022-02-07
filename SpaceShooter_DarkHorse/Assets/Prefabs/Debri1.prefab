@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 814175846811634397}
   - component: {fileID: 814175846810864369}
   - component: {fileID: 814175846809733169}
-  - component: {fileID: 814175846811997951}
   - component: {fileID: 814175846811997948}
+  - component: {fileID: 814175846811997951}
   m_Layer: 0
   m_Name: Debri1
   m_TagString: Obtsacle
@@ -83,6 +83,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &814175846811997948
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814175846811997949}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.004038038, y: 0.0041231993, z: 0.0047221836}
+  m_Center: {x: -0.00006428757, y: -0.0000059049353, z: 0.0017006719}
 --- !u!114 &814175846811997951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,16 +110,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   isUpward: 0
---- !u!65 &814175846811997948
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814175846811997949}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.004038038, y: 0.0041231993, z: 0.0047221836}
-  m_Center: {x: -0.00006428757, y: -0.0000059049353, z: 0.0017006719}

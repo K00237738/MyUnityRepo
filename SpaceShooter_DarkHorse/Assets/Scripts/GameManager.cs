@@ -4,24 +4,37 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int level, obstacleAmount, multiplier, boundary;
+    public int wave, level, obstacleAmount, multiplier, boundary;
     public List<GameObject> spaceWreckage;
     public float waveStartDelay, spawnRate, endDelay;
+    private bool spawningWave, endGame;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnWreckageWave());
+        spawningWave = false;
+        endGame = false;
+        wave = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        while(endGame == false && spawningWave == false)
+        {//two checks, if a wave spawning is taking affect **and** if the game is over
+            //StartCoroutine(SpawnWreckageWave());
+            //if(wave == 5)
+            //{
+            //    endGame = true;
+            //    wave = 0;
+            //}
+        }
     }
 
     IEnumerator SpawnWreckageWave()
     {
-        obstacleAmount = (int)Mathf.Log(level*multiplier, 2f);
+        wave++;
+        spawningWave = true;
+        obstacleAmount = (int)Mathf.Log(level * wave * multiplier, 2f);
         yield return new WaitForSeconds(waveStartDelay);
         for (int i = 0; i < obstacleAmount; i++)
         {
@@ -29,6 +42,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(spawnRate);
         }
         yield return new WaitForSeconds(endDelay);
+        spawningWave = false;
+        wave++;
     }
 
     Vector3 RandomSpawnPosition()

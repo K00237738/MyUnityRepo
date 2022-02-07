@@ -15,14 +15,14 @@ public class EnemyBehaviour : Projectile
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-        //Movement();
+        //base.Update();
+        Movement();
     }
 
     protected override void Movement()
     {
-        //float playerDistance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
-        //transform.rotation = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position);
+        float playerDistance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
+        transform.rotation = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position);
         //enemyMovmentVector = (GameObject.Find("Player").transform.position - transform.position) * Time.deltaTime * speed;
         //transform.Translate(enemyMovmentVector);
 
@@ -30,7 +30,7 @@ public class EnemyBehaviour : Projectile
         //transform.position = (GameObject.Find("Player").transform.position - transform.position) * Time.deltaTime * speed;
         //if (/*playerDistance < 21*/simpletravel)
         //{
-        //    //simpletravel=false;
+        //    simpletravel=false;
         //    transform.rotation = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position);
         //    transform.position = (GameObject.Find("Player").transform.position - transform.position) * Time.deltaTime * 1;
         //}
