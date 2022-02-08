@@ -6,7 +6,7 @@ public class SpaceDebri : Projectile
 {
     protected void Start()
     {
-        speed = speed * 1.25f;
+        speed = speed * 1.5f;
     }
     // Update is called once per frame
     protected override void Update()

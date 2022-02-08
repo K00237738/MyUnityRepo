@@ -23,6 +23,7 @@ public class EnemyBehaviour : Projectile
     {
         float playerDistance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
         transform.rotation = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position);
+        //Debug.Log("child movement");
         //enemyMovmentVector = (GameObject.Find("Player").transform.position - transform.position) * Time.deltaTime * speed;
         //transform.Translate(enemyMovmentVector);
 
@@ -38,5 +39,15 @@ public class EnemyBehaviour : Projectile
         //{
         //}
         //base.Movement();
+    }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+        if (other.gameObject.tag == "Player")//specifically collides with player
+        {
+            Destroy(gameObject);//hit the player
+        }
+
     }
 }
