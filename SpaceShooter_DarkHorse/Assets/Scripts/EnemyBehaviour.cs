@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour : Projectile
 {
     private bool simpletravel;
-    private Vector3 enemyMovmentVector;
+    public Vector3 enemyMovmentVector, directionVec;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,30 +15,33 @@ public class EnemyBehaviour : Projectile
     // Update is called once per frame
     protected override void Update()
     {
-        //base.Update();
-        Movement();
+        float playerDistance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
+        if (playerDistance < 25 && simpletravel)
+        {
+            simpletravel = false;
+            directionVec = (GameObject.Find("Player").transform.position - transform.position);
+            //transform.rotation = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position);
+            //transform.Rotate(0, Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position).y, 0);
+            transform.LookAt(GameObject.Find("Player").transform.position);
+            transform.Rotate(0, 180, 0);
+        }
+        else
+        {
+            EnemyMovement();
+        }
+        if (simpletravel)
+        {
+            base.Update();
+        }
+
     }
 
-    protected override void Movement()
+    protected void EnemyMovement()
     {
-        float playerDistance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
-        transform.rotation = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position);
-        //Debug.Log("child movement");
-        //enemyMovmentVector = (GameObject.Find("Player").transform.position - transform.position) * Time.deltaTime * speed;
-        //transform.Translate(enemyMovmentVector);
-
-        //base.Movement();
-        //transform.position = (GameObject.Find("Player").transform.position - transform.position) * Time.deltaTime * speed;
-        //if (/*playerDistance < 21*/simpletravel)
-        //{
-        //    simpletravel=false;
-        //    transform.rotation = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position);
-        //    transform.position = (GameObject.Find("Player").transform.position - transform.position) * Time.deltaTime * 1;
-        //}
-        //else
-        //{
-        //}
-        //base.Movement();
+        //float yRotate = Quaternion.FromToRotation(transform.position, GameObject.Find("Player").transform.position).y;
+        //transform.Rotate(new Vector3(0, yRotate, 0));
+        enemyMovmentVector = transform.position + directionVec * Time.deltaTime * 1.5f;
+        transform.position = enemyMovmentVector;
     }
 
     protected void OnTriggerEnter(Collider other)
@@ -46,7 +49,8 @@ public class EnemyBehaviour : Projectile
         base.OnTriggerEnter(other);
         if (other.gameObject.tag == "Player")//specifically collides with player
         {
-            Destroy(gameObject);//hit the player
+            //Destroy(gameObject);//hit the player
+            gameObject.SetActive(false);
         }
 
     }

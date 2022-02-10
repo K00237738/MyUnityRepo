@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
         Movement();
     }
 
-    protected virtual void Movement()
+    protected void Movement()
     {
         if(isUpward != true)
         {
