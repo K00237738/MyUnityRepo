@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour : Projectile
 {
     private bool simpletravel, fireDelay, isTargeting, directionSwitch, hunterLaunching;
-    private float swayDistance, startingXposition;
+    private float swayDistance, startingXposition, targetDistance;
 
     public Vector3 enemyMovmentVector, directionVec;
     public bool isSeeker, isHunter, isEasy;
@@ -19,7 +19,8 @@ public class EnemyBehaviour : Projectile
             swayDistance = Random.Range(15, 25);
             startingXposition = transform.position.x;
         }
-        simpletravel = false;
+        targetDistance = 30;
+        simpletravel = true;
         isTargeting = false;
         directionSwitch = false;
         hunterLaunching = false;
@@ -33,13 +34,13 @@ public class EnemyBehaviour : Projectile
         {
             if(!isEasy)
             {
-                if (playerDistance < 25 && simpletravel)
+                if (playerDistance < targetDistance && simpletravel)
                 {
                     simpletravel = false;
                     isTargeting = true;//stop periodic firing
                     directionVec = (GameObject.Find("Player").transform.position - transform.position);
                     transform.LookAt(GameObject.Find("Player").transform.position);
-                    //transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
+                    transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
                 }
                 else
                 {
@@ -48,9 +49,16 @@ public class EnemyBehaviour : Projectile
                 if (simpletravel)
                 {
                     base.Update();//normal movement of a projectile
+                    StartCoroutine(EnemyShoot());
                 }
             }
+            else
+            {
+                base.Update();//normal movement of a projectile
+                StartCoroutine(EnemyShoot());
+            }
         }
+
         else//enemy is a hunter type
         {
             if(!isTargeting && simpletravel)//while they are not targeting and simply travelling down screen
@@ -58,7 +66,7 @@ public class EnemyBehaviour : Projectile
                 if(directionSwitch)
                 {//sway to the right
                     transform.position = transform.position + Vector3.right * Time.deltaTime * speed;
-                    if(transform.position.x >= (transform.position.x + swayDistance))
+                    if(transform.position.x >= (startingXposition + swayDistance))
                     {
                         directionSwitch = false;
                     }
@@ -66,17 +74,20 @@ public class EnemyBehaviour : Projectile
                 else
                 {//sway to the left
                     transform.position = transform.position + Vector3.left * Time.deltaTime * speed;
-                    if (transform.position.x <= (transform.position.x - swayDistance))
+                    if (transform.position.x <= (startingXposition - swayDistance))
                     {
                         directionSwitch = true;
                     }
                 }
                 base.Update();//still travel down
-                if(playerDistance < 25)
-                {
+                StartCoroutine(EnemyShoot());
+
+                if (!isEasy && playerDistance < targetDistance)
+                {//if not easy, switch to trageting mode, else continue on down the screen
                     isTargeting = true;//break out of loop
                     hunterLaunching = true;
                     simpletravel = false;
+                    StartCoroutine(HunterLaunch());//gets called once
                 }
             }
 
@@ -85,9 +96,9 @@ public class EnemyBehaviour : Projectile
                 //stop and aim for a few seconds then launch
                 if(hunterLaunching)
                 {//positon in direction of player for set amount of time
-                    StartCoroutine(HunterLaunch());
                     directionVec = (GameObject.Find("Player").transform.position - transform.position);
                     transform.LookAt(GameObject.Find("Player").transform.position);
+                    transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
                 }
                 else
                 {//laucnh
@@ -116,21 +127,23 @@ public class EnemyBehaviour : Projectile
 
     IEnumerator EnemyShoot()
     {
-        if(fireDelay && !isTargeting)
+        if(!fireDelay && !isTargeting)
         {//is it ok to fire and are they not in a targeting phase(dive bombing)
             if(isSeeker)
             {//fire periodically if a seeker and not currently targeting
-                fireDelay = false;
+                fireDelay = true;
                 Instantiate(enemyShot, gun.transform.position, enemyShot.transform.rotation);
                 yield return new WaitForSeconds(fireRate);
+                fireDelay = false;
             }
             else
             {
-                if((transform.position.x == GameObject.Find("Player").transform.position.y) && !isTargeting)
+                if(((int)transform.position.x == (int)GameObject.Find("Player").transform.position.x)/* && !isTargeting*/)
                 {//if enemy alligns and not currently targeting
-                    fireDelay = false;
+                    fireDelay = true;
                     Instantiate(enemyShot, gun.transform.position, enemyShot.transform.rotation);
                     yield return new WaitForSeconds(fireRate);
+                    fireDelay = false;
                 }//else don't fire
             }
         }
@@ -138,8 +151,8 @@ public class EnemyBehaviour : Projectile
 
     IEnumerator HunterLaunch()
     {
-        isTargeting = true;
+        isTargeting = true;//stop them from firing
         yield return new WaitForSeconds(launchDelay);
-        hunterLaunching = false;
+        hunterLaunching = false;//release aiming phase
     }
 }

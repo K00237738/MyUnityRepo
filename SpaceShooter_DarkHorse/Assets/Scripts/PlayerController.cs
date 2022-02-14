@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float h_move, v_move, boundaryX, boundaryYtop, boundaryYbot;
+    private float h_move, v_move, boundaryX, boundaryZtop, boundaryZbot;
     private Vector3 playerMotion, gun1, gun2;
     private int health;
     private bool gunReady;
@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         boundaryX = GameObject.Find("GameManager").GetComponent<GameManager>().boundary;
-        boundaryYbot = -15;
-        boundaryYtop = 110;
+        boundaryZbot = -20;
+        boundaryZtop = 120;
         StartCoroutine(ShotDelay());
     }
 
@@ -47,13 +47,13 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-boundaryX, 0, transform.position.z);
         }
 
-        if (transform.position.z > boundaryYtop)
+        if (transform.position.z > boundaryZtop)
         {
-            transform.position = new Vector3(transform.position.x, 0, boundaryYtop);
+            transform.position = new Vector3(transform.position.x, 0, boundaryZtop);
         }
-        else if (transform.position.z < boundaryYbot)
+        else if (transform.position.z < boundaryZbot)
         {
-            transform.position = new Vector3(transform.position.x, 0, boundaryYbot);
+            transform.position = new Vector3(transform.position.x, 0, boundaryZbot);
         }
     }
 
