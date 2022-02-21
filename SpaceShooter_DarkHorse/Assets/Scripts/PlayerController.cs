@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private float h_move, v_move, boundaryX, boundaryZtop, boundaryZbot;
     private Vector3 playerMotion, gun1, gun2;
-    private int health;
+    private int health, max_health;
     private bool gunReady;
 
     public GameObject lazershot;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void CheckBoundaries()
-    {
+    {//keep player within screen
         if (transform.position.x > boundaryX)
         {
             transform.position = new Vector3(boundaryX, 0, transform.position.z);
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     private void Shoot()
     {
         if (Input.GetKeyDown(KeyCode.Space) && gunReady)
-        {
+        {//if key input and gun is ready, shoot
             gun1 = GameObject.Find("Gun").transform.position;
             gun2 = GameObject.Find("Gun2").transform.position;
             Instantiate(lazershot, gun1, lazershot.transform.rotation);
@@ -70,10 +70,35 @@ public class PlayerController : MonoBehaviour
     }
 
     IEnumerator ShotDelay()
-    {
+    {//fire delay
         gunReady = false;
         yield return new WaitForSeconds(shotdelay);
         gunReady = true;
+    }
+
+    //methods for modifying player stats e.g. health and damage
+    public void HurtPlayer(int damage)
+    {
+
+    }
+
+    public void HealPlayer(int health)
+    {
+
+    }
+
+    public void IncreaseFireRate()
+    {
+
+    }
+
+    public void IncreaseDameage()
+    {
+
+    }
+    public void InitializeLevelStats()
+    {//initialize stats for level
+        health = 25*GameObject.Find("GameManage").GetComponent<GameManager>().level;
     }
 
 

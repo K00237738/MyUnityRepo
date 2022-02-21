@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
     public float waveStartDelay, spawnRate, endDelay, levelTime;
     public Text timeText;
 
-    private bool spawningWave, endGame, bossTime;
+    private bool spawningWave, endGame, bossTime, levelActive;
     // Start is called before the first frame update
     void Start()
     {
+        levelActive = true;
         spawningWave = false;
         endGame = false;
         bossTime = false;
@@ -44,22 +45,25 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while(endGame == false && spawningWave == false)
-        {//two checks, if a wave spawning is taking affect **and** if the game is over
-            StartCoroutine(SpawnWreckageWave());
-            if (levelTime <= 0.0f)
-            {
-                endGame = true;
-                wave = 0;
-                bossTime = true;
+        if(levelActive)
+        {//while a level is active
+            while (endGame == false && spawningWave == false)
+            {//two checks, if a wave spawning is taking affect **and** if the game is over
+                StartCoroutine(SpawnWreckageWave());
+                if (levelTime <= 0.0f)
+                {
+                    endGame = true;
+                    wave = 0;
+                    bossTime = true;
+                }
             }
+            while (bossTime == true)
+            {
+                //boss sequence here
+            }
+            levelTime -= Time.deltaTime;
+            UpdateUIComponents();
         }
-        while(bossTime == true)
-        {
-            //boss sequence here
-        }
-        levelTime -= Time.deltaTime;
-        UpdateUIComponents();
     }
 
     private void UpdateUIComponents()
