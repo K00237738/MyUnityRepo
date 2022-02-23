@@ -97,17 +97,17 @@ public class PlayerController : MonoBehaviour
     //methods for modifying player stats e.g. health and damage
     public void HurtPlayer(int damage)
     {
-
+        health-=damage;
     }
 
-    public void HealPlayer(int health)
+    public void HealPlayer(int addhealth)
     {
-
+        health += addhealth;
     }
 
     public void IncreaseFireRate()
     {
-
+        shotdelay *= 0.75f;//decrease by 75 percent
     }
 
     public void IncreaseDameage()
