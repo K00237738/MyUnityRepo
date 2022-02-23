@@ -30,9 +30,27 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        h_move = Input.GetAxis("Horizontal");
-        v_move = Input.GetAxis("Vertical");
+        //h_move = Input.GetAxis("Horizontal");
+        //v_move = Input.GetAxis("Vertical");
+        //transform.position = transform.position + new Vector3(h_move, 0, v_move) * Time.deltaTime * speed;
+
+
+        // Track a single touch as a direction control.
+        if (Input.touchCount > 0)
+        {
+            Touch playerInput = Input.GetTouch(0);
+            // Handle finger movements based on touch phase.
+            switch (playerInput.phase)
+            {
+                // Record initial touch position.
+                case TouchPhase.Began:
+                    h_move = playerInput.position.x;
+                    v_move = playerInput.position.y;
+                    break;
+            }
+        }
         transform.position = transform.position + new Vector3(h_move, 0, v_move) * Time.deltaTime * speed;
+
         CheckBoundaries();
     }
 
