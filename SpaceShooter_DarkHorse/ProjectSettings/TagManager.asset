@@ -8,6 +8,11 @@ TagManager:
   - OOB
   - Obtsacle
   - GoodBullet
+  - Health
+  - Damage
+  - FirRate
+  - Invincible
+  - Boss
   layers:
   - Default
   - TransparentFX

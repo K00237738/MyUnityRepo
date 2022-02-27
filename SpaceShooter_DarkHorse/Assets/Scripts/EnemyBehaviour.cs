@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemyBehaviour : Projectile
 {
     private bool simpletravel, fireDelay, isTargeting, directionSwitch, hunterLaunching;
-    private float swayDistance, startingXposition, targetDistance;
+    private float swayDistance, startingXposition, targetDistance, health;
 
     public Vector3 enemyMovmentVector, directionVec;
     public bool isSeeker, isHunter, isEasy;
     public GameObject enemyShot, gun;
     public float fireRate, launchDelay;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if(!isSeeker)
         {
@@ -24,12 +24,13 @@ public class EnemyBehaviour : Projectile
         isTargeting = false;
         directionSwitch = false;
         hunterLaunching = false;
+        health = 6 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();//health depenedent on level, highjer more tougher
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        float playerDistance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
+        float playerDistance = Vector3.Distance(transform.position, GameObject.FindWithTag("Player").transform.position);
         if (isSeeker)
         {
             if(!isEasy)
@@ -38,8 +39,8 @@ public class EnemyBehaviour : Projectile
                 {
                     simpletravel = false;
                     isTargeting = true;//stop periodic firing
-                    directionVec = (GameObject.Find("Player").transform.position - transform.position);
-                    transform.LookAt(GameObject.Find("Player").transform.position);
+                    directionVec = (GameObject.FindWithTag("Player").transform.position - transform.position);
+                    transform.LookAt(GameObject.FindWithTag("Player").transform.position);
                     transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
                 }
                 else
@@ -96,8 +97,8 @@ public class EnemyBehaviour : Projectile
                 //stop and aim for a few seconds then launch
                 if(hunterLaunching)
                 {//positon in direction of player for set amount of time
-                    directionVec = (GameObject.Find("Player").transform.position - transform.position);
-                    transform.LookAt(GameObject.Find("Player").transform.position);
+                    directionVec = (GameObject.FindWithTag("Player").transform.position - transform.position);
+                    transform.LookAt(GameObject.FindWithTag("Player").transform.position);
                     transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
                 }
                 else
@@ -138,7 +139,7 @@ public class EnemyBehaviour : Projectile
             }
             else
             {
-                if(((int)transform.position.x == (int)GameObject.Find("Player").transform.position.x)/* && !isTargeting*/)
+                if(((int)transform.position.x == (int)GameObject.FindWithTag("Player").transform.position.x)/* && !isTargeting*/)
                 {//if enemy alligns and not currently targeting
                     fireDelay = true;
                     Instantiate(enemyShot, gun.transform.position, enemyShot.transform.rotation);

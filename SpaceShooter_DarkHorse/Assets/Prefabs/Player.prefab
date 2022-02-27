@@ -4988,7 +4988,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019237419424074192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 0, z: -8.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 1017904376541349031}
@@ -5099,6 +5099,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lazershot: {fileID: 393625021221920766, guid: 146ab116ec46558499cdaced968b334d, type: 3}
+  Gun1: {fileID: 1017904377732733569}
+  Gun2: {fileID: 1017904375927361069}
   speed: 50
   shotdelay: 0.2
 --- !u!54 &945506721

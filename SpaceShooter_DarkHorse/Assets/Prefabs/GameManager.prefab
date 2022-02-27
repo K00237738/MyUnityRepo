@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1351001693679621731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351001693679621733}
+  - component: {fileID: 1351001693679621730}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351001693679621733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351001693679621731}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351001693679621730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351001693679621731}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c1788bd0a5a44b47908908db8b030f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundary: 59
+  wave: 0
+  level: 0
+  obstacleAmount: 0
+  enemyAmount: 0
+  obstacleMultiplier: 0
+  enemyMultiplier: 0
+  spaceWreckage:
+  - {fileID: 814175846811997949, guid: 1b7d1fc52da50ca4b853797be32348ca, type: 3}
+  - {fileID: 8409049955061384992, guid: 1a6388dcb00f12643ab10f889985292f, type: 3}
+  - {fileID: 3869629213736935823, guid: 0d33b2ab7d991384093bc9730cb35ef5, type: 3}
+  - {fileID: 6490851248833833077, guid: d952d645741a93940946b0b885c40eca, type: 3}
+  enemyTypes:
+  - {fileID: 3050444821849516386, guid: 7acbff23d53156e479fe3ed28a917b07, type: 3}
+  - {fileID: 9093250027300046197, guid: 7ff1b68758f32e445b2c4796760e3da4, type: 3}
+  - {fileID: 6762122839768859923, guid: eb85bf01672712c42a7c4693854834db, type: 3}
+  - {fileID: 1939757566634203405, guid: 2085a6b1b65731e4db7fe631dda55666, type: 3}
+  waveStartDelay: 2
+  spawnRate: 1.5
+  endDelay: 5
+  levelTime: 0
+  timeText: {fileID: 0}
+  menu: {fileID: 0}
+  player: {fileID: 1019237419424074192, guid: 86fba8a35164d2c40a01b7d7232cfa0e, type: 3}
+  boss: {fileID: 2083664120309889539, guid: e447edd5d9996c84eb4717cefe566246, type: 3}
