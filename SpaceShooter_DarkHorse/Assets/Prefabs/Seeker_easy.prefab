@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3050444821849485278}
   m_Layer: 0
   m_Name: Seeker_easy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   isUpward: 0
   enemyMovmentVector: {x: 0, y: 0, z: 0}
   directionVec: {x: 0, y: 0, z: 0}
-  isSeeker: 0
+  isSeeker: 1
   isHunter: 0
   isEasy: 1
   enemyShot: {fileID: 8344747180932061675, guid: 575342bae871ec84888370204e689e62, type: 3}

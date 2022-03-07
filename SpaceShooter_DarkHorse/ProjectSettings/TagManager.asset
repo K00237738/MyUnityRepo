@@ -13,6 +13,7 @@ TagManager:
   - FirRate
   - Invincible
   - Boss
+  - Enemy
   layers:
   - Default
   - TransparentFX

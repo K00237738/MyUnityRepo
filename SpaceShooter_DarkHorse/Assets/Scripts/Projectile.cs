@@ -36,11 +36,18 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);//destory out of bounds
         }
-        if(gameObject.tag == "Bullet"/* || gameObject.tag == "GoodBullet"*/)//check if current gameobject is a bullet of sorts
+        if(gameObject.tag == "Bullet")//check if current gameobject is a bullet of sorts
         {
             if(other.gameObject.tag == "Player")
             {
                 Destroy(gameObject);//hit the player
+            }
+        }
+        else if (gameObject.tag == "GoodBullet")
+        {
+            if (other.gameObject.tag == "Enemy")//an enemy
+            {
+                other.gameObject.GetComponent<EnemyBehaviour>().HurtEnemy((int)GameObject.FindWithTag("Player").GetComponent<PlayerController>().GetDamage());//hit the player
             }
         }
     }

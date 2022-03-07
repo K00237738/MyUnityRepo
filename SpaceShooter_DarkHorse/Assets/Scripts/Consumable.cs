@@ -19,16 +19,16 @@ public class Consumable : Projectile
             Debug.Log("healthUp!");
             switch(consumableType)
             {
-                case 1:
-
+                case 1://heal
+                    other.GetComponent<PlayerController>().HealPlayer(20);
                     break;
-                case 2:
-
+                case 2://firerate
+                    other.GetComponent<PlayerController>().IncreaseFireRate();
                     break;
-                case 3:
-
+                case 3://damage
+                    other.GetComponent<PlayerController>().IncreaseDameage();
                     break;
-                case 4:
+                case 4://invulnerability
 
                     break;
             }

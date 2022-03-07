@@ -12,13 +12,13 @@ public class PlayerController : MonoBehaviour
     public float speed, shotdelay = 1.0f;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         boundaryZbot = -20;
         boundaryZtop = 120;
         StartCoroutine(ShotDelay());
         health = 30 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
-        damage = 1 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
+        damage = 2 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
         boundaryX = GameObject.Find("GameManager").GetComponent<GameManager>().boundary;
     }
 
@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Shoot();
+        if(health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void Movement()
@@ -41,7 +45,7 @@ public class PlayerController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch playerInput = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Begin)
+            if (playerInput.phase == TouchPhase.Began)
             switch (playerInput.phase)
             {
                 // Record initial touch position.
@@ -50,8 +54,10 @@ public class PlayerController : MonoBehaviour
                     v_move = playerInput.position.y;//get its x and y(z) position on screen
                     break;
             }
+            playerMotion = transform.position-new Vector3(h_move, 0, v_move);
         }
-        transform.position = transform.position + new Vector3(h_move, 0, v_move) * Time.deltaTime * speed;
+        //transform.position = transform.position + new Vector3(h_move, 0, v_move) * Time.deltaTime * speed;
+        transform.position = transform.position + playerMotion * Time.deltaTime * speed;
 
 #endif
 
@@ -136,12 +142,13 @@ public class PlayerController : MonoBehaviour
     public float GetDamage()
     { return damage; }
 
-    public void CheckHealth()
+    public bool IsDead()
     {
-        if(health <= 0)
+        if (health <= 0)
         {
-            gameObject.SetActive(false);
+            return true;
         }
+        else return false;
     }
 
 }

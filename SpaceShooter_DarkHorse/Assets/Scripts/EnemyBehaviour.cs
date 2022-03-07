@@ -39,7 +39,7 @@ public class EnemyBehaviour : Projectile
                 {
                     simpletravel = false;
                     isTargeting = true;//stop periodic firing
-                    directionVec = (GameObject.FindWithTag("Player").transform.position - transform.position);
+                    directionVec = (GameObject.FindWithTag("Player").transform.position - transform.position);//there should only be one instance of player
                     transform.LookAt(GameObject.FindWithTag("Player").transform.position);
                     transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
                 }
@@ -116,16 +116,6 @@ public class EnemyBehaviour : Projectile
         transform.position = enemyMovmentVector;
     }
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-        if (other.gameObject.tag == "Player")//specifically collides with player
-        {
-            //Destroy(gameObject);//hit the player
-            gameObject.SetActive(false);
-        }
-    }
-
     IEnumerator EnemyShoot()
     {
         if(!fireDelay && !isTargeting)
@@ -155,5 +145,24 @@ public class EnemyBehaviour : Projectile
         isTargeting = true;//stop them from firing
         yield return new WaitForSeconds(launchDelay);
         hunterLaunching = false;//release aiming phase
+    }
+
+    public void HurtEnemy(int damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);//base function
+        if (other.gameObject.tag == "Player")//specifically collides with player
+        {
+            other.gameObject.GetComponent<PlayerController>().HurtPlayer(10);
+            Destroy(gameObject);//hit the player
+        }
     }
 }

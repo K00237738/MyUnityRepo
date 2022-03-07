@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpaceDebri : Projectile
 {
     private float health, damage;
-    protected void Awake()
+    protected void Start()
     {
         speed = speed * 1.5f;
         health = 5 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
@@ -30,11 +30,6 @@ public class SpaceDebri : Projectile
         else if (other.gameObject.tag == "GoodBullet")
         {
             Destroy(gameObject);//destory if player bullet hits
-            Destroy(other.gameObject);
-        }
-        else if(other.gameObject.tag == "Bullet")
-        {
-            Destroy(gameObject);//destory if enemy bullet hits
             Destroy(other.gameObject);
         }
         else

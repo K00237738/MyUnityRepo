@@ -9,10 +9,10 @@ public class BossBehaviour : MonoBehaviour
 
     public GameObject bossbullet;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        health = 0;
-        shotDelay = 1;
+        health = 1;
+        shotDelay = 5;
         coolDown = false;
     }
 
@@ -20,10 +20,10 @@ public class BossBehaviour : MonoBehaviour
     void Update()
     {
         StartCoroutine(BossShoot());
-        if(health == 0)
-        {
-            gameObject.SetActive(false);
-        }
+        //if(health <= 0)
+        //{
+        //    gameObject.SetActive(false);
+        //}
     }
 
     IEnumerator BossShoot()
@@ -34,18 +34,6 @@ public class BossBehaviour : MonoBehaviour
             Instantiate(bossbullet, transform.position, bossbullet.transform.rotation);
             yield return new WaitForSeconds(shotDelay);
             coolDown = false;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Bullet")
-        {//bullet from player
-            health-=GameObject.FindWithTag("Player").GetComponent<PlayerController>().GetDamage();
-            if(health <= 0)
-            {
-                gameObject.SetActive(false);
-            }
         }
     }
 
@@ -66,6 +54,18 @@ public class BossBehaviour : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "GoodBullet")
+        {//bullet from player
+            health -= GameObject.FindWithTag("Player").GetComponent<PlayerController>().GetDamage();
+            //if(health <= 0)
+            //{
+            //    gameObject.SetActive(false);
+            //}
         }
     }
 }

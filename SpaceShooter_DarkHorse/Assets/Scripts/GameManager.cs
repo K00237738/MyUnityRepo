@@ -27,14 +27,15 @@ public class GameManager : MonoBehaviour
         LevelSpecificValues();
         UpdateUIComponents();
         level = 1;
-        Instantiate(player, transform.position, Quaternion.identity);
-        Instantiate(boss);
+        //Instantiate(player, transform.position, Quaternion.identity);
+        //Instantiate(boss);
+
         player.gameObject.SetActive(false);
         boss.gameObject.SetActive(false);
     }
     public void Update()
     {
-        Debug.Log("Level Activce");
+        //Debug.Log("Level Activce");
         LevelSequence();
     }
 
@@ -56,7 +57,9 @@ public class GameManager : MonoBehaviour
                     endGame = true;
                     wave = 0;
                     bossTime = true;//move onto boss phase
-                    GameObject.FindWithTag("Boss").GetComponent<BossBehaviour>().ResetBoss();
+                    //GameObject.FindWithTag("Boss").GetComponent<BossBehaviour>().ResetBoss();
+                    boss.SetActive(true);
+                    boss.GetComponent<BossBehaviour>().ResetBoss();
                 }
             }
             else if (bossTime == true)
@@ -69,16 +72,29 @@ public class GameManager : MonoBehaviour
                     wave++;//if both routines are done, wave increase
                 }
                 //if boss is dead, destory all enemies
-                if (GameObject.Find("Boss").GetComponent<BossBehaviour>().isBossDead() == true)
+                if (/*GameObject.Find("Boss")*/boss.GetComponent<BossBehaviour>().isBossDead() == true)
                 {
                     bossTime = false;
                     levelActive = false;
                     menu.SetActive(true);
+                    boss.SetActive(false);
                     player.gameObject.SetActive(false);
                 }
             }
             levelTime -= Time.deltaTime;
             UpdateUIComponents();
+            if(player.gameObject.GetComponent<PlayerController>().IsDead() == true)
+            {
+                endGame = true;
+                wave = 0;
+                bossTime = true;//move onto boss phase
+                                //GameObject.FindWithTag("Boss").GetComponent<BossBehaviour>().ResetBoss();
+                bossTime = false;
+                levelActive = false;
+                menu.SetActive(true);
+                boss.SetActive(false);
+                player.gameObject.SetActive(false);
+            }
         }//active loop end
     }
 
@@ -87,7 +103,7 @@ public class GameManager : MonoBehaviour
         switch (level)
         {
             case 1:
-                levelTime = 120f;//2 mins
+                levelTime = 30f;//2 mins
                 break;
             case 2:
                 levelTime = 180f;//3 mins
@@ -178,12 +194,12 @@ public class GameManager : MonoBehaviour
     {
         player.gameObject.GetComponent<PlayerController>().ShootTouch();
         //for testing puproses
-        if (spawningObstacleWave == false && spawningEnemyWave == false)
-        {
-            StartCoroutine(SpawnWreckageWave());
-            StartCoroutine(SpawnEnemies());
-            wave++;//if both routines are done, wave increase
-        }
+        //StartCoroutine(SpawnWreckageWave());
+        //StartCoroutine(SpawnEnemies());
+        //wave++;//if both routines are done, wave increase
+        //if (spawningObstacleWave == false && spawningEnemyWave == false)
+        //{
+        //}
 
     }
 }
