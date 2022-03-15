@@ -25,21 +25,27 @@ MonoBehaviour:
   UserMessagesSubmitted: 0
   UserMessagesFailed: 0
   CustomArea: 
-  gameKey: []
-  secretKey: []
-  Build: []
-  SelectedPlatformOrganization: []
-  SelectedPlatformStudio: []
-  SelectedPlatformGame: []
-  SelectedPlatformGameID: 
-  SelectedOrganization: 
-  SelectedStudio: 
-  SelectedGame: 
+  gameKey:
+  - 757c3ab5d88ff55a6f6494015300037d
+  secretKey:
+  - 0ad3188a9198de0f15fa119b597c5e51a1f63843
+  Build:
+  - 0.1
+  SelectedPlatformOrganization:
+  - WindMillGames
+  SelectedPlatformStudio:
+  - WindMillStudios
+  SelectedPlatformGame:
+  - DarkhorseSpaceShooter
+  SelectedPlatformGameID: 99e70200
+  SelectedOrganization: 01000000
+  SelectedStudio: 01000000
+  SelectedGame: 01000000
   NewVersion: 
   Changes: 
   SignUpOpen: 0
   StudioName: 
-  GameName: SpaceShooter_DarkHorse
+  GameName: darkhorse
   OrganizationName: 
   OrganizationIdentifier: 
   EmailGA: devlyn.marcos@gmail.com
@@ -56,7 +62,7 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: -1
-  Platforms: 
+  Platforms: 0b000000
   CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
@@ -84,7 +90,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 
+  PlatformFoldOut: 01
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GameAnalyticsSDK;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
+        GameAnalytics.Initialize();
+        //GameAnalytics.NewResourceEvent(GAResourceFlowType, “PlayerHealth”, 400, “playerstat”, “playerh”);
+        //GameAnalytics.NewProgressionEvent(GA_Progression.GAProgressionStatus progressionStatus, string progression01, string progression02, string progression03, int score);
+        //GameAnalytics.NewDesignEvent(string eventName, float eventValue);
+
         levelActive = false;//need to flip when ready
         spawningObstacleWave = false;
         endGame = false;
@@ -96,6 +102,7 @@ public class GameManager : MonoBehaviour
                 player.gameObject.SetActive(false);
             }
         }//active loop end
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Level End");
     }
 
     private void LevelSpecificValues()
@@ -104,12 +111,15 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 levelTime = 30f;//2 mins
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Level 1");
                 break;
             case 2:
                 levelTime = 180f;//3 mins
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Level 2");
                 break;
             case 3:
                 levelTime = 240f;//4 mins
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Level 3");
                 break;
             default:
                 //will be default (possible level 1 difficulty)
