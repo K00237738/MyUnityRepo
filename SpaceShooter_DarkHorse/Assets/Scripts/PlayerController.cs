@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float h_move, v_move, boundaryX, boundaryZtop, boundaryZbot, damage, health, max_health;
+    private float h_move, v_move, boundaryXleft, boundaryXright, boundaryZtop, boundaryZbot, damage, health, max_health;
     private Vector3 playerMotion;
     private bool gunReady;
 
@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ShotDelay());
         health = 30 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
         damage = 2 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
-        boundaryX = GameObject.Find("GameManager").GetComponent<GameManager>().boundary;
+        boundaryZtop = GameObject.Find("GameManager").GetComponent<GameManager>().boundaryTop;
+        boundaryZbot = GameObject.Find("GameManager").GetComponent<GameManager>().boundaryBot;
     }
 
     // Update is called once per frame
@@ -66,13 +67,13 @@ public class PlayerController : MonoBehaviour
 
     private void CheckBoundaries()
     {//keep player within screen
-        if (transform.position.x > boundaryX)
+        if (transform.position.z > boundaryZtop)
         {
-            transform.position = new Vector3(boundaryX, 0, transform.position.z);
+            transform.position = new Vector3(boundaryZtop, 0, transform.position.z);
         }
-        else if (transform.position.x < -boundaryX)
+        else if (transform.position.z < boundaryZbot)
         {
-            transform.position = new Vector3(-boundaryX, 0, transform.position.z);
+            transform.position = new Vector3(boundaryZbot, 0, transform.position.z);
         }
 
         if (transform.position.z > boundaryZtop)

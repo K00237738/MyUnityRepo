@@ -20,11 +20,11 @@ public class Projectile : MonoBehaviour
     {
         if(isUpward != true)
         {
-            movement = transform.position + Vector3.back * Time.deltaTime * speed;
+            movement = transform.position + Vector3.left * Time.deltaTime * speed;
         }
         else
         {
-            movement = transform.position + Vector3.forward * Time.deltaTime * speed;
+            movement = transform.position + Vector3.right * Time.deltaTime * speed;
         }
         transform.position = movement;
     }

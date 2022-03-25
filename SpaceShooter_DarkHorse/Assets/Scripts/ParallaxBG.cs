@@ -15,8 +15,8 @@ public class ParallaxBG : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.position - Vector3.forward * Time.deltaTime * speed;
-        if (transform.position.z <= -100.0f)
+        transform.position = transform.position - Vector3.right * Time.deltaTime * speed;
+        if (transform.position.x <= -218.0f)
         {
             transform.position = originalPosition;
         }

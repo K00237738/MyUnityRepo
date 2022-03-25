@@ -6,7 +6,7 @@ using GameAnalyticsSDK;
 
 public class GameManager : MonoBehaviour
 {
-    public int boundary, wave, level, obstacleAmount, enemyAmount, obstacleMultiplier, enemyMultiplier;
+    public int boundaryTop, boundaryBot, wave, level, obstacleAmount, enemyAmount, obstacleMultiplier, enemyMultiplier;
     public List<GameObject> spaceWreckage, enemyTypes;
     public float waveStartDelay, spawnRate, endDelay, levelTime;
     public Text timeText;
@@ -170,8 +170,8 @@ public class GameManager : MonoBehaviour
 
     Vector3 RandomSpawnPosition()
     {
-        float x = Random.Range(boundary, -boundary);
-        return new Vector3(x, 0, 140);
+        float z = Random.Range(boundaryTop, boundaryBot);
+        return new Vector3(180, 0, z);
     }
 
     public void MenuOptions(int inputLevel)

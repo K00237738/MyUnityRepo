@@ -66,16 +66,16 @@ public class EnemyBehaviour : Projectile
             {//two booleans to ensure this is entered when needed and not when uneeded (also, one boolena is used later on)
                 if(directionSwitch)
                 {//sway to the right
-                    transform.position = transform.position + Vector3.right * Time.deltaTime * speed;
-                    if(transform.position.x >= (startingXposition + swayDistance))
+                    transform.position = transform.position + Vector3.forward * Time.deltaTime * speed;
+                    if(transform.position.z >= (startingXposition + swayDistance))
                     {
                         directionSwitch = false;
                     }
                 }
                 else
                 {//sway to the left
-                    transform.position = transform.position + Vector3.left * Time.deltaTime * speed;
-                    if (transform.position.x <= (startingXposition - swayDistance))
+                    transform.position = transform.position + Vector3.back * Time.deltaTime * speed;
+                    if (transform.position.z <= (startingXposition - swayDistance))
                     {
                         directionSwitch = true;
                     }
