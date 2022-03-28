@@ -98,11 +98,12 @@ public class GameManager : MonoBehaviour
                 bossTime = false;
                 levelActive = false;
                 menu.SetActive(true);
+                DestroyAllNPC();
                 boss.SetActive(false);
                 player.gameObject.SetActive(false);
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Level End");
             }
         }//active loop end
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Level End");
     }
 
     private void LevelSpecificValues()
@@ -171,7 +172,7 @@ public class GameManager : MonoBehaviour
     Vector3 RandomSpawnPosition()
     {
         float z = Random.Range(boundaryTop, boundaryBot);
-        return new Vector3(180, 0, z);
+        return new Vector3(190, 0, z);
     }
 
     public void MenuOptions(int inputLevel)
@@ -211,5 +212,30 @@ public class GameManager : MonoBehaviour
         //{
         //}
 
+    }
+
+    private void DestroyAllNPC()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] wreckage = GameObject.FindGameObjectsWithTag("Obtsacle");
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+        GameObject[] bullets2 = GameObject.FindGameObjectsWithTag("GoodBullet");
+
+        foreach (GameObject temp in enemies)
+        {
+            Destroy(temp);
+        }
+        foreach (GameObject temp in wreckage)
+        {
+            Destroy(temp);
+        }
+        foreach (GameObject temp in bullets)
+        {
+            Destroy(temp);
+        }
+        foreach (GameObject temp in bullets2)
+        {
+            Destroy(temp);
+        }
     }
 }

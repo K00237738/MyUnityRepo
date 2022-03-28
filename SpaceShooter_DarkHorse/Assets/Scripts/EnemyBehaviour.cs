@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour : Projectile
 {
     private bool simpletravel, fireDelay, isTargeting, directionSwitch, hunterLaunching;
-    private float swayDistance, startingXposition, targetDistance, health;
+    private float swayDistance, startingZposition, targetDistance, health;
 
     public Vector3 enemyMovmentVector, directionVec;
     public bool isSeeker, isHunter, isEasy;
@@ -17,7 +17,7 @@ public class EnemyBehaviour : Projectile
         if(!isSeeker)
         {
             swayDistance = Random.Range(15, 25);
-            startingXposition = transform.position.x;
+            startingZposition = transform.position.z;
         }
         targetDistance = 30;
         simpletravel = true;
@@ -41,7 +41,7 @@ public class EnemyBehaviour : Projectile
                     isTargeting = true;//stop periodic firing
                     directionVec = (GameObject.FindWithTag("Player").transform.position - transform.position);//there should only be one instance of player
                     transform.LookAt(GameObject.FindWithTag("Player").transform.position);
-                    transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
+                    //transform.Rotate(0, 180, 0);//the droid enemy fighter weirdly does not turn right (reverses)
                 }
                 else
                 {
@@ -65,17 +65,17 @@ public class EnemyBehaviour : Projectile
             if(!isTargeting && simpletravel)//while they are not targeting and simply travelling down screen
             {//two booleans to ensure this is entered when needed and not when uneeded (also, one boolena is used later on)
                 if(directionSwitch)
-                {//sway to the right
+                {//sway to the up
                     transform.position = transform.position + Vector3.forward * Time.deltaTime * speed;
-                    if(transform.position.z >= (startingXposition + swayDistance))
+                    if(transform.position.z >= (startingZposition + swayDistance))
                     {
                         directionSwitch = false;
                     }
                 }
                 else
-                {//sway to the left
+                {//sway to the down
                     transform.position = transform.position + Vector3.back * Time.deltaTime * speed;
-                    if (transform.position.z <= (startingXposition - swayDistance))
+                    if (transform.position.z <= (startingZposition - swayDistance))
                     {
                         directionSwitch = true;
                     }
