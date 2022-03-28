@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
                 endGame = true;
                 wave = 0;
                 bossTime = true;//move onto boss phase
-                                //GameObject.FindWithTag("Boss").GetComponent<BossBehaviour>().ResetBoss();
                 bossTime = false;
                 levelActive = false;
                 menu.SetActive(true);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
 {
-    private float health, shotDelay;
+    public float health, shotDelay;
     private bool coolDown;
 
     public GameObject bossbullet;
@@ -39,6 +39,7 @@ public class BossBehaviour : MonoBehaviour
 
     public void ResetBoss()
     {
+        Debug.Log("Boss reset call");
         gameObject.SetActive(true);
         health = 25 * GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
         shotDelay = (9 / GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel()) * 0.75f;

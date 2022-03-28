@@ -8,7 +8,7 @@ public class BossBullet : MonoBehaviour
     private float speed;
     private int damage;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         movement = transform.position - GameObject.FindWithTag("Player").transform.position;
         speed = 2.0f* GameObject.Find("GameManager").GetComponent<GameManager>().GetLevel();
