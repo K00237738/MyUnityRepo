@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public void Awake()
     {
         GameAnalytics.Initialize();
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Start up game", 15);
         //GameAnalytics.NewResourceEvent(GAResourceFlowType, “PlayerHealth”, 400, “playerstat”, “playerh”);
         //GameAnalytics.NewProgressionEvent(GA_Progression.GAProgressionStatus progressionStatus, string progression01, string progression02, string progression03, int score);
         //GameAnalytics.NewDesignEvent(string eventName, float eventValue);
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
                     //GameObject.FindWithTag("Boss").GetComponent<BossBehaviour>().ResetBoss();
                     boss.SetActive(true);
                     boss.GetComponent<BossBehaviour>().ResetBoss();
+                    GameAnalytics.NewDesignEvent("Boss Start", 5);
                 }
             }
             else if (bossTime == true)
@@ -85,6 +87,9 @@ public class GameManager : MonoBehaviour
                     menu.SetActive(true);
                     boss.SetActive(false);
                     player.gameObject.SetActive(false);
+                    GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Completed level", 10);
+                    GameAnalytics.NewDesignEvent("Boss defeated", 6);
+                    DestroyAllNPC();
                 }
             }
             levelTime -= Time.deltaTime;
@@ -97,10 +102,10 @@ public class GameManager : MonoBehaviour
                 bossTime = false;
                 levelActive = false;
                 menu.SetActive(true);
-                DestroyAllNPC();
                 boss.SetActive(false);
                 player.gameObject.SetActive(false);
-                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Level End");
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "Failed level", 1);
+                DestroyAllNPC();
             }
         }//active loop end
     }
@@ -203,10 +208,13 @@ public class GameManager : MonoBehaviour
     public void PlayerShootCall()
     {
         player.gameObject.GetComponent<PlayerController>().ShootTouch();
+        GameAnalytics.NewDesignEvent("Player shoot");
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Shots", 2, "Projectile", "p1");
+        //GameAnalytics.NewBusinessEventGooglePlay("Shoot call", 1, "Free type", "1", string cartType, string receipt, string signature);
         //for testing puproses
         //StartCoroutine(SpawnWreckageWave());
         //StartCoroutine(SpawnEnemies());
-        //wave++;//if both routines are done, wave increase
+        ////wave++;//if both routines are done, wave increase
         //if (spawningObstacleWave == false && spawningEnemyWave == false)
         //{
         //}
@@ -215,6 +223,7 @@ public class GameManager : MonoBehaviour
 
     private void DestroyAllNPC()
     {
+        Debug.Log("Destorying all enemies and props");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] wreckage = GameObject.FindGameObjectsWithTag("Obtsacle");
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
