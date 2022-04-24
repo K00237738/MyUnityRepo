@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameAnalyticsSDK;
 
 public class EnemyBehaviour : Projectile
 {
@@ -14,7 +15,8 @@ public class EnemyBehaviour : Projectile
     // Start is called before the first frame update
     void Awake()
     {
-        if(!isSeeker)
+        GameAnalytics.Initialize();
+        if (!isSeeker)
         {
             swayDistance = Random.Range(15, 25);
             startingZposition = transform.position.z;
@@ -153,6 +155,7 @@ public class EnemyBehaviour : Projectile
         if(health <= 0)
         {
             Destroy(gameObject);
+            GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "EnemyKill", 1, "Data", "e1");
         }
     }
 

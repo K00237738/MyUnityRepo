@@ -11,7 +11,7 @@ public class BossBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 1;
+        health = 50;
         shotDelay = 5;
         coolDown = false;
     }
@@ -58,11 +58,15 @@ public class BossBehaviour : MonoBehaviour
         }
     }
 
+    public void HurtBoss()
+    {
+        health -= GameObject.FindWithTag("Player").GetComponent<PlayerController>().GetDamage();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "GoodBullet")
         {//bullet from player
-            health -= GameObject.FindWithTag("Player").GetComponent<PlayerController>().GetDamage();
             //if(health <= 0)
             //{
             //    gameObject.SetActive(false);

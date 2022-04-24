@@ -49,6 +49,10 @@ public class Projectile : MonoBehaviour
             {
                 other.gameObject.GetComponent<EnemyBehaviour>().HurtEnemy((int)GameObject.FindWithTag("Player").GetComponent<PlayerController>().GetDamage());//hit the player
             }
+            else if (other.gameObject.tag == "Boss")//an enemy
+            {
+                other.gameObject.GetComponent<BossBehaviour>().HurtBoss();//hit the player
+            }
         }
     }
 

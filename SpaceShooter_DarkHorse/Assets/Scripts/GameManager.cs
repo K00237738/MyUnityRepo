@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject menu, player, boss;
 
     private bool spawningObstacleWave, spawningEnemyWave, endGame, bossTime, levelActive;
+    private int playerscore;
     // Start is called before the first frame update
     public void Awake()
     {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         //GameAnalytics.NewProgressionEvent(GA_Progression.GAProgressionStatus progressionStatus, string progression01, string progression02, string progression03, int score);
         //GameAnalytics.NewDesignEvent(string eventName, float eventValue);
 
+        playerscore = 0;
         levelActive = false;//need to flip when ready
         spawningObstacleWave = false;
         endGame = false;
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
         LevelSequence();
     }
 
-
+    //level running methods---------------------------------------------------
     public void LevelSequence()
     {
         if (levelActive == true)
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour
                     boss.SetActive(true);
                     boss.GetComponent<BossBehaviour>().ResetBoss();
                     GameAnalytics.NewDesignEvent("Boss Start", 5);
+                    DestroyAllNPC();//get rid of unecessary npcs
                 }
             }
             else if (bossTime == true)
@@ -133,18 +136,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void UpdateUIComponents()
-    {
-        if(bossTime == true)
-        {
-            timeText.text = "Time: BossTime!";
-        }
-        else
-        {
-            timeText.text = "Time: " + (int)levelTime / 60 + ":" + (int)levelTime % 60;
-        }
-    }
-
     IEnumerator SpawnWreckageWave()
     {
         spawningObstacleWave = true;
@@ -179,17 +170,7 @@ public class GameManager : MonoBehaviour
         return new Vector3(190, 0, z);
     }
 
-    public void MenuOptions(int inputLevel)
-    {
-        //level options
-        level = inputLevel;
-        ResetLevel();
-    }
 
-    public int GetLevel()
-    {
-        return level;
-    }
 
     public void ResetLevel()
     {
@@ -208,17 +189,8 @@ public class GameManager : MonoBehaviour
     public void PlayerShootCall()
     {
         player.gameObject.GetComponent<PlayerController>().ShootTouch();
-        GameAnalytics.NewDesignEvent("Player shoot");
         GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Shots", 2, "Projectile", "p1");
         //GameAnalytics.NewBusinessEventGooglePlay("Shoot call", 1, "Free type", "1", string cartType, string receipt, string signature);
-        //for testing puproses
-        //StartCoroutine(SpawnWreckageWave());
-        //StartCoroutine(SpawnEnemies());
-        ////wave++;//if both routines are done, wave increase
-        //if (spawningObstacleWave == false && spawningEnemyWave == false)
-        //{
-        //}
-
     }
 
     private void DestroyAllNPC()
@@ -245,5 +217,29 @@ public class GameManager : MonoBehaviour
         {
             Destroy(temp);
         }
+    }
+    //update UI---------------------------------------------------
+    private void UpdateUIComponents()
+    {
+        if (bossTime == true)
+        {
+            timeText.text = "Time: BossTime!";
+        }
+        else
+        {
+            timeText.text = "Time: " + (int)levelTime / 60 + ":" + (int)levelTime % 60;
+        }
+    }
+    //meun selection---------------------------------------------------
+    public void MenuOptions(int inputLevel)
+    {
+        //level options
+        level = inputLevel;
+        ResetLevel();
+    }
+    //other---------------------------------------------------
+    public int GetLevel()
+    {
+        return level;
     }
 }
