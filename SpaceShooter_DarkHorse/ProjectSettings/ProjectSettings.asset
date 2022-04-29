@@ -40,7 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos: []
-  m_VirtualRealitySplashScreen: {fileID: 0}
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 802fde68ed9133b45a3d2727d0f7eff9, type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
@@ -593,9 +593,7 @@ PlayerSettings:
   switchPlayerConnectionEnabled: 1
   switchUseNewStyleFilepaths: 0
   switchUseMicroSleepForYield: 1
-  switchEnableRamDiskSupport: 0
   switchMicroSleepForYieldTime: 25
-  switchRamDiskSpaceSize: 12
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 

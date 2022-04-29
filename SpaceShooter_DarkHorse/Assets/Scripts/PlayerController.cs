@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             playerMotion = transform.position-new Vector3(h_move, 0, v_move);
         }
         //transform.position = transform.position + new Vector3(h_move, 0, v_move) * Time.deltaTime * speed;
-        transform.position = transform.position + playerMotion * Time.deltaTime * speed;
+        transform.position = playerMotion;
 
 #endif
 

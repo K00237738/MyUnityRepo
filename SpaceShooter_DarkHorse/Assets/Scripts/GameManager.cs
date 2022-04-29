@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
     public void PlayerShootCall()
     {
         player.gameObject.GetComponent<PlayerController>().ShootTouch();
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Shots", 2, "Projectile", "p1");
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "Shots", 2, "Projectile", "p1");
         //GameAnalytics.NewBusinessEventGooglePlay("Shoot call", 1, "Free type", "1", string cartType, string receipt, string signature);
     }
 
